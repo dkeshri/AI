@@ -1,0 +1,15 @@
+################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+*.vs
+**/packages
+**/bin
+**/obj
+*.user
+**/Release
+**.env
+
+/Backend/Store.WebServer/Store.WebApi/Invoice.pdf
+/__blobstorage__
+/__azurite_db_blob_extent__.json
+/__azurite_db_blob__.json
