@@ -15,4 +15,11 @@ internal class RandomNumberTools
     {
         return Random.Shared.Next(min, max);
     }
+
+    [McpServerTool]
+    [Description("Generates the current UTC date and time.")]
+    public string GetUTCDateNow()
+    {
+        return DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss");
+    }
 }
