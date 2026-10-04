@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="Dkeshri.McpServer/Dkeshri.McpServer.csproj" Id="d442bcab-71db-4601-bee0-00c5adb88900" />
   <Project Path="McpServerApp/McpServerApp.csproj" />
 </Solution>
