@@ -1,3 +1,4 @@
+using Dkeshri.McpServer.Dto;
 using ModelContextProtocol.Server;
 using System.ComponentModel;
 
@@ -9,7 +10,7 @@ internal class RandomNumberTools
 {
     [McpServerTool]
     [Description("Calculates the age based on the provided date of birth.")]
-    public int AgeCalculation(
+    public PersonAgeDto AgeCalculation(
         [Description("The date of birth in YYYY-MM-DD format")] string dateOfBirth)
     {
         if (string.IsNullOrWhiteSpace(dateOfBirth))
@@ -40,10 +41,28 @@ internal class RandomNumberTools
         if (dob > today)
             throw new ArgumentException("Date of birth cannot be in the future.", nameof(dateOfBirth));
 
-        int age = today.Year - dob.Year;
-        if (today < dob.AddYears(age))
-            age--;
+        // Years
+        int years = today.Year - dob.Year;
+        if (today < dob.AddYears(years))
+            years--;
 
-        return age;
+        // Use DateTime for precise month/day arithmetic
+        var dobDt = dob.ToDateTime(TimeOnly.MinValue, DateTimeKind.Utc);
+        var todayDt = DateTime.UtcNow.Date;
+
+        var monthBase = dobDt.AddYears(years);
+        int months = 0;
+        while (monthBase.AddMonths(months + 1) <= todayDt)
+            months++;
+
+        var dayBase = monthBase.AddMonths(months);
+        int days = (int)(todayDt - dayBase).TotalDays;
+
+        return new PersonAgeDto
+        {
+            Years = years,
+            Months = months,
+            Days = days
+        };
     }
 }
